@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎂 Birthday Card</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .card-section {
+      position: relative;
+      margin-top: 30px;
+    }
+    .birthday-card {
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .birthday-card:hover {
+      transform: scale(1.02);
+    }
+    .birthday-card img {
+      width: 100%;
+      border-radius: 15px;
+      max-height: 250px;
+      object-fit: cover;
+    }
+    #cardMessage {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 1s, transform 1s;
+    }
+    .show-message #cardMessage {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎂 Birthday Surprise 🎁</h1>
+
+    <div class="card-section">
+      <div class="birthday-card" id="birthdayCard">
+        <img id="cardPhoto" src="" alt="Birthday Image">
+        <h2 id="cardName"></h2>
+        <p id="cardAge"></p>
+        <p id="cardMessage"></p>
+      </div>
+    </div>
+  </div>
+
+ <script>
+  const data = JSON.parse(localStorage.getItem("birthdayData"));
+
+  if (data) {
+    document.getElementById("cardName").innerText = `🎉 Happy Birthday ${data.name}! 🎂`;
+    document.getElementById("cardAge").innerText = data.age ? `${data.age} years old` : "";
+    document.getElementById("cardPhoto").src = data.photo || "https://images.unsplash.com/photo-1607923408694-3e06f8e23404?auto=format&fit=crop&w=800&q=80";
+
+    const card = document.getElementById("birthdayCard");
+    card.addEventListener("click", () => {
+      card.classList.add("show-message");
+      document.getElementById("cardMessage").innerText = data.message || "Wishing you a fantastic day!";
+    });
+  }
+</script>
+
+</body>
+</html>
